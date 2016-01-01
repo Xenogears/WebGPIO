@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebGPIO - Radar</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <style type="text/css">
+            div.ControlsContainer
+            {
+                display: inline-block;
+                
+                font-family: Helvetica;
+                background-color: #DDD;
+                border: solid 1px #333;
+                
+                padding: 5px 10px;
+            }
+            
+            table tbody tr td
+            {
+                text-align: center;
+            }
+        </style>
+        
+        <script type="text/javascript" src="../js/webgpio.js"></script>
+        <script type="text/javascript" src="../js/ext-all.js"></script>
+        <script type="text/javascript">
+            
+            window.Pins = [
+                { EchoPin: 11, TrgPin: 10, Cardinal: 'N'},
+                { EchoPin: 16, TrgPin: 15, Cardinal: 'O'},
+                { EchoPin: 9, TrgPin: 5, Cardinal: 'S'},
+                { EchoPin: 13, TrgPin: 12, Cardinal: 'E'}
+            ];
+            
+            window.addEventListener("load", function()
+            {
+                webGPIO.addResponseListener(function(Msg)
+                {
+                    for(var i = 0; i < window.Pins.length; i++)
+                    {
+                        if(window.Pins[i].EchoPin === Msg.EchoPin && window.Pins[i].TrgPin === Msg.TrgPin)
+                        {
+                            if(Msg.Distance > 0)
+                            {
+                                window.DistanceValues[window.Pins[i].Cardinal] = (Msg.Distance / 1000);  
+                                window.store.loadData(window.createData()); 
+                            }
+
+                            window.setTimeout(function()
+                            {
+                                webGPIO.getDistanceFromSensor(this.EchoPin, this.TrgPin);
+                            }.bind(window.Pins[i]), 100);
+
+                            break;
+                        }
+                    }                    
+                }, false, { Action: 'GET_DISTANCE' });    
+                
+                window.store = Ext.create('Ext.data.JsonStore',
+                {
+                    fields: ['name', 'value' ],
+                    data: createData()
+                });
+
+                window.chart = Ext.create('Ext.chart.Chart', {
+                    renderTo: Ext.getBody(),
+                    width: 750,
+                    height: 750,
+                    animate: true,
+                    theme:'Category2',
+                    store: window.store,
+                    axes: [{
+                        type: 'Radial',
+                        position: 'radial',
+                        label: {
+                            display: true
+                        }
+                    }],
+                    series: [
+                        {
+                            type: 'radar',
+                            xField: 'name',
+                            yField: 'value',
+                            showInLegend: true,
+                            showMarkers: true,
+                            style: {
+                                'stroke-width': 0,
+                                fill: '#FF0000',
+                                opacity: 0.4
+                            }
+                        }
+                    ]    
+                });      
+
+                window.setChartMaximum(document.getElementById('RadarScale').value);
+                window.QuerySensors();
+            }, false);                  
+            
+            window.QuerySensors = function()
+            {
+                for(var i = 0; i < window.Pins.length; i++)
+                    webGPIO.getDistanceFromSensor(window.Pins[i].EchoPin, window.Pins[i].TrgPin);
+            };            
+            
+            window.DistanceValues = { N:0, E:0, S:0, O:0 }; 
+            window.createData = function()
+            {
+                var InvertGraphics = document.getElementById('InvertGraphics').checked;
+                var RadialAverage = document.getElementById('RadialAverage').checked;
+                
+                return [           
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.O: window.DistanceValues.E) }, //E
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.O: window.DistanceValues.E) },
+                        
+                        {'name':'',  'value':(RadialAverage === true ? (InvertGraphics === true ? (window.DistanceValues.O + window.DistanceValues.N) / 2 :  (window.DistanceValues.E + window.DistanceValues.S) / 2) : 0) },
+                        
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.N: window.DistanceValues.S) },
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.N: window.DistanceValues.S) }, //S
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.N: window.DistanceValues.S) },
+                        
+                        {'name':'',  'value':(RadialAverage === true ? (InvertGraphics === true ? (window.DistanceValues.N + window.DistanceValues.E) / 2:  (window.DistanceValues.S + window.DistanceValues.O) / 2) : 0) },
+                                
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.E: window.DistanceValues.O) },
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.E: window.DistanceValues.O) }, //O
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.E: window.DistanceValues.O) },
+                      
+                        {'name':'',  'value':(RadialAverage === true ? (InvertGraphics === true ? (window.DistanceValues.E + window.DistanceValues.S)  / 2:  (window.DistanceValues.O + window.DistanceValues.N) / 2) : 0) },
+                        
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.S: window.DistanceValues.N) },
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.S: window.DistanceValues.N) }, //N
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.S: window.DistanceValues.N) },
+                        
+                        {'name':'',  'value':(RadialAverage === true ? (InvertGraphics === true ? (window.DistanceValues.S + window.DistanceValues.E) / 2 :  (window.DistanceValues.N + window.DistanceValues.E) / 2) : 0) },
+                        
+                        {'name':'',  'value':(InvertGraphics === true ? window.DistanceValues.O: window.DistanceValues.E) }                     
+                    ];
+            }
+          
+            window.setChartMaximum = function(max)
+            {
+                for(var i = 0; i < window.chart.axes.items.length; i++)
+                {
+                    window.chart.axes.items[i].maximum = max;                    
+                    window.chart.axes.items[i].steps = 5;
+                }
+                
+                window.store.loadData(window.createData());
+            };
+        </script>
+    </head>
+    <body>
+        <div class="ControlsContainer">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><span>Scale</span></td>
+                        <td><input id="RadarScale" type="range" min="10" max="400" value="50" onchange="setChartMaximum(this.value)"/></td>
+                    </tr>
+                    <tr>
+                        <td><span>Invert</span></td>
+                        <td><input type="checkbox" id="InvertGraphics" /></td>
+                    </tr>
+                    <tr>
+                        <td><span>Radial Average</span></td>
+                        <td><input type="checkbox" id="RadialAverage" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

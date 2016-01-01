@@ -1,0 +1,66 @@
+.wgpio-icon-settings
+{
+    background: url('icons/cog.png') no-repeat;
+}
+
+.wgpio-icon-examples
+{
+    background: url('icons/application_view_list.png') no-repeat;
+}
+
+.wgpio-icon-api
+{
+    background: url('icons/book.png') no-repeat;
+}
+
+.wgpio-icon-raspberry
+{
+    background: url('icons/raspberry.png') no-repeat;
+}
+
+.wgpio-icon-tomcat
+{
+    background: url('icons/tomcat.png') no-repeat;
+}
+
+.wgpio-icon-reboot
+{
+    background: url('icons/arrow_rotate_clockwise.png') no-repeat;
+}
+
+.wgpio-icon-shutdown
+{
+    background: url('icons/delete.png') no-repeat;
+}
+
+.wgpio-icon-connected
+{
+    background: url('icons/connect	.png') no-repeat;
+}
+
+.wgpio-icon-disconnected
+{
+    background: url('icons/disconnect.png') no-repeat;
+}
+
+.wgpio-icon-piano
+{
+    width: 32px!important;
+    background: url('icons/piano.png') no-repeat;
+}
+
+.wgpio-icon-led
+{
+    background: url('icons/led.png') no-repeat;
+}
+
+.wgpio-icon-radar
+{
+    background: url('icons/radar.png') no-repeat;
+}
+
+.wgpio-icon-code
+{
+    width: 32px!important;
+    background: url('icons/code.png') no-repeat;
+}

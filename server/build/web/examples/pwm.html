@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>PWM</title>
+        <style type="text/css">
+            #LedLabel 
+            {
+                font-family: Helvetica;
+            }
+            
+            canvas
+            {
+                margin: 0 auto;
+                display: block;
+            }
+            
+            div.ControlsContainer
+            {
+                display: inline-block;
+                
+                font-family: Helvetica;
+                background-color: #DDD;
+                border: solid 1px #333;
+                
+                padding: 5px 10px;
+            }
+        </style>
+        
+        <script type="text/javascript" src="../js/webgpio.js"></script>
+        <script type="text/javascript">
+            var LedPins = [{ Pin: 1, Increment: true, Value: 0 }];
+               
+            function UpdateLed()
+            {
+                webGPIO.getPinValue(this.Pin, function(MsgValue)
+                {
+                    this.Value = MsgValue.Value;
+                    
+                    if(this.Increment)
+                        this.Value += 2;
+                    else
+                        this.Value -= 2;
+
+                    if(this.Value >= 100 || this.Value <= 0)
+                        this.Increment = !this.Increment;
+
+                    UpdateCanvasValue(this.Value);  
+                    webGPIO.setPinValue(this.Pin, this.Value, UpdateLed.bind(this));
+                }.bind(this));     
+            }
+            
+            function UpdateCanvasValue(v)
+            {
+                var canvas = document.getElementById('LedCanvas');
+                var ctx = canvas.getContext('2d');
+                var centerX = canvas.width / 2;
+                var centerY = canvas.height / 2;
+                var radius = (canvas.width / 2) - 5 * 2;
+
+                ctx.beginPath();
+
+                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                ctx.fillStyle = 'rgb(' + Math.round((v * 255) / 100)+ ', 0, 0)';
+                ctx.fill();
+
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = '#003300';
+                ctx.stroke();
+
+                ctx.closePath();
+                
+                document.getElementById("LedValue").value = v;
+                document.getElementById("LedLabel").innerHTML = v + "&nbsp;%";
+            }
+            
+            window.addEventListener("load", function()
+            {
+                for(var i = 0; i < LedPins.length; i++)
+                {
+                    webGPIO.setPinMode(LedPins[i].Pin, "pwm", function(MsgMode)
+                    {
+                        if(MsgMode.Message !== 'OK')
+                            console.error("ERROR! : " + MsgMode.Message);                    
+                    
+                        UpdateLed.bind(this)();                       
+                    }.bind(LedPins[i]));
+                }
+            }, false);            
+        </script>
+    </head>
+<body>
+    <div class="ControlsContainer">
+        <input id="LedValue" type="range" min="0" max="100" value="0" step="2" disabled="disabled"/>
+        <span id="LedLabel"></span>
+    </div>
+    
+    <canvas id="LedCanvas" width="400" height="400"></canvas>
+</body>
+</html>

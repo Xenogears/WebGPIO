@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>API Cliente</title>
+        <link type="text/css" rel="stylesheet" href="style/prettify.css" />
+        <script type="text/javascript" src="js/prettify.js"></script>
+
+        <script type="text/javascript">            
+            var Files = ["js/webgpio.js"];
+            window.addEventListener("load", function()
+            {
+                for(var i = 0; i < Files.length; i++)
+                {
+                    var Req = new XMLHttpRequest();
+                    Req.addEventListener("readystatechange", function()
+                    {
+                        if(Req.readyState === 4 && Req.status === 200)
+                        {
+                            var Data = Req.responseText;
+                            
+                            while(Data.indexOf("\r\n") !== -1)
+                                Data = Data.replace("\r\n", "<br/>");
+                            
+                            document.getElementById('CodeView').innerHTML += Data;
+                            prettyPrint();
+                        }                         
+                        
+                    }, false);
+                    
+                    Req.open("GET", Files[i], true);
+                    Req.send();
+                }                
+            }, false);
+        </script>
+    </head>
+    <body>
+        <pre>
+            <code id="CodeView" class="prettyprint"></code>
+        </pre>
+    </body>
+</html>

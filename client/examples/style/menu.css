@@ -1,0 +1,124 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	
+	font-family: Helvetica;
+}
+
+.topBar
+{
+	margin: 0 5px;
+	background-color: #157fcc;
+	
+	text-align: center;
+	vertical-align: middle;
+}
+
+span.title
+{
+	display: block;
+
+	color: white;
+	font-size: 20px;
+	
+	margin-top: 10px;
+	text-shadow: 0 1px 1px #333;
+}
+
+.contentPanel
+{
+	background-color: red;
+	
+	border-top: solid 6px #3892d3;
+}
+
+.contentPanel iframe
+{
+	border: 0;
+	background-color: #dfeaf2;
+	
+	width: 100%;
+	height: 100%;
+}
+
+.bottomBar
+{
+	margin: 0 5px;
+	background-color: #157fcc!important;
+	
+	text-align: center;
+	vertical-align: middle;
+}
+
+span#serverStatus
+{
+	float: right;
+	padding: 10px 10px 10px 30px;
+	background-color: #888;
+	border: solid 1px #333;
+	color: white;
+	
+	cursor: pointer;
+}
+
+.Connected, .Disconnected
+{
+	background-position: 5px 10px;
+	background-repeat: no-repeat;
+}
+
+.Connected
+{
+	text-shadow: 0px 0px 3px #00FF00;
+	background-image: url('icons/connect.png');	
+}
+
+.Disconnected
+{
+	text-shadow: 0px 0px 3px #FF0000;
+	background-image: url('icons/disconnect.png');
+}
+
+.wgpio-example-button
+{
+    display: block;
+    margin: 5px 0 5px 15px;
+}
+
+.wgpio-button
+{
+    border-radius: 3px;
+    padding: 3px;
+    margin: 5px 0 5px 15px;
+
+    display: block;
+    width: auto!important;
+
+    text-shadow: 1px 1px 1px #333;
+    background-image: -webkit-linear-gradient(top,#4b9cd7,#3892d3 50%,#358ac8 51%,#3892d3) !important;
+}
+
+
+.SampleTitle
+{
+    display: block;
+    font-weight: bold;
+    text-shadow: 0px 0px 1px #333;
+
+    font-size: 15px;
+    text-align: left;
+    margin-left: 16px;
+}
+
+.SampleDesc
+{
+    display: block;
+    font-style: italic;
+    
+    font-size: 10px;
+    text-align: left;
+    margin-left: 16px;
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style type="text/css">
+            canvas
+            {
+                margin: 0 auto;
+                display: block;
+                
+                box-shadow: 0px 0px 5px #333;
+                background-color: #333;
+            }
+            
+            div.ControlsContainer
+            {
+                display: inline-block;
+                
+                font-family: Helvetica;
+                background-color: #DDD;
+                border: solid 1px #333;
+                
+                padding: 5px 10px;
+            }
+        </style>
+        
+        <script type="text/javascript" src="../js/webgpio.js"></script>
+        <script type="text/javascript">
+            /*window.addEventListener("beforeunload", function()
+            {
+                for(var i = 0; i < window.PianoKeys.length; i++)
+                {
+                    webGPIO.removeRemotePinListeners(window.PianoKeys[i].Pin, function(Msg)
+                    {
+                        console.log("Pin nº " + Msg.Pin + " listeners removed successfully");
+                    });
+                }
+            }, false);*/
+            
+            window.addEventListener("load", function()
+            {
+                window.PianoKeys =
+                [
+                    { Pin: 14, Player: document.getElementById('player_pin14'), Pressed: false },
+                    { Pin: 0,  Player: document.getElementById('player_pin0'), Pressed: false },
+                    { Pin: 3,  Player: document.getElementById('player_pin3'), Pressed: false },
+                    { Pin: 6,  Player: document.getElementById('player_pin6'), Pressed: false },
+                    { Pin: 2,  Player: document.getElementById('player_pin2'), Pressed: false },
+                    { Pin: 4,  Player: document.getElementById('player_pin4'), Pressed: false },
+                    { Pin: 7,  Player: document.getElementById('player_pin7'), Pressed: false }
+                ];
+
+                for(var i = 0; i < PianoKeys.length; i++)
+                {
+                    webGPIO.setPinMode(PianoKeys[i].Pin, "in");
+                    webGPIO.addRemotePinListener(PianoKeys[i].Pin, function(Msg)
+                    {
+                        this.Pressed = (Msg.Value === 0 ? false : true); 
+                        
+                        if(this.Pressed)
+                        {
+                            this.Player.currentTime = 0;
+                            this.Player.play();
+                        }
+                        else
+                        {
+                            if(document.getElementById('PianoSustain').checked === false)
+                                this.Player.pause();
+                        }
+        
+                        DrawPiano();
+                    }.bind(PianoKeys[i]));
+                }
+                
+                DrawPiano();
+            }, false);
+            
+            
+            var DrawPiano = function()
+            {                
+                var c = document.getElementById("PianoCanvas");
+                var ctx = c.getContext("2d");    
+                
+                //CLEAR
+                ctx.clearRect(0, 0, c.width, c.height);
+                
+                for(var i = 0; i < window.PianoKeys.length; i++)
+                {
+                    ctx.beginPath();
+                    
+                    ctx.rect(10 + i * 80, 10, 80, 390);
+                    ctx.fillStyle = (!window.PianoKeys[i].Pressed ? "white" : "rgba(255, 0, 0, 0.4)");
+                    ctx.fill();
+                    ctx.stroke();     
+                    
+                    ctx.closePath();
+                }
+                
+                //SEMITONOS
+                for(var i = 0; i < window.PianoKeys.length; i++)
+                {
+                    if(i !== 2 && i !== 6)
+                    {
+                        ctx.beginPath();
+                        
+                        ctx.rect(65 + i * 80, 10, 50, 250);
+                        ctx.fillStyle = "black";
+                        ctx.fill();   
+                        
+                        ctx.closePath();
+                    }                    
+                }
+            }
+            
+        </script>
+    </head>
+<body>
+<div>
+    <audio id="player_pin14"><source src="../rco/do.ogg" type="audio/ogg"></audio>
+    <audio id="player_pin0"><source src="../rco/re.ogg" type="audio/ogg"></audio>
+    <audio id="player_pin3"><source src="../rco/mi.ogg" type="audio/ogg"></audio>
+    <audio id="player_pin6"><source src="../rco/fa.ogg" type="audio/ogg"></audio>
+    <audio id="player_pin2"><source src="../rco/sol.ogg" type="audio/ogg"></audio>
+    <audio id="player_pin4"><source src="../rco/la.ogg" type="audio/ogg"></audio>
+    <audio id="player_pin7"><source src="../rco/si.ogg" type="audio/ogg"></audio>
+   
+    <div class="ControlsContainer">
+        <span>Sustain</span>
+        <input type="checkbox" id="PianoSustain" checked="checked" />
+    </div>
+    
+    <canvas id="PianoCanvas" width="580" height="410"></canvas>
+</div>
+</body>
+</html>

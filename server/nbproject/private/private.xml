@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/wgpioProvider.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/StopTomcat.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/GetMode.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/web/index.html</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/RemoveAllEventListeners.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/GetValue.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/SetMode.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/web/style/icons.css</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/web/examples/radar.html</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/wgpioUtils.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/RestartTomcat.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/SetValue.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/web/api.html</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/MainControllerMessageHandler.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/web/style/menu.css</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/wgpioHandleGpioPinDigitalStateChangeEvent.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/wgpioAction.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/wgpioErrorFrame.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/GetDistance.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/AddEventListener.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/MainController.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/ShutdownPi.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/ContextListener.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/web/examples/pwm.html</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/wgpioSoftPwmPin.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/web/js/webgpio.js</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/web/js/menu.js</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/src/java/ceedcv/WebGPIO/Actions/RebootPi.java</file>
+            <file>file:/C:/Users/alvar_000/Desktop/WebGPIO/WebGPIO/web/examples/piano.html</file>
+        </group>
+    </open-files>
+</project-private>
